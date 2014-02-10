@@ -1,14 +1,12 @@
 #!/bin/sh
 #
-# nginx - this script starts and stops the nginx daemon
+# openresty - this script starts and stops the nginx daemon
 #
 # chkconfig:   - 85 15
-# description:  Nginx is an HTTP(S) server, HTTP(S) reverse \
-#               proxy and IMAP/POP3 proxy server
+# description:  Openresty is a bundle of Nginx with several popular modules
 # processname: nginx
-# config:      /etc/nginx/nginx.conf
-# config:      /etc/sysconfig/nginx
-# pidfile:     /var/run/nginx.pid
+# config:      /usr/local/openresty/nginx/conf/nginx.conf
+# pidfile:     /var/run/openresty.pid
 
 # Source function library.
 . /etc/rc.d/init.d/functions

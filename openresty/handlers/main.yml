@@ -1,0 +1,3 @@
+---
+- name: Start openresty
+  service: name=openresty state=started

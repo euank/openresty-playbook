@@ -1,0 +1,27 @@
+---
+- name: Install dependencies
+  yum: pkg={{ item }} state=installed
+  with_items:
+    - "@development"
+    - readline-devel
+    - pcre-devel
+    - openssl-devel
+    - perl
+
+# Todo, make version be a variable
+- name: Download source code
+  get_url: url=http://openresty.org/download/ngx_openresty-1.4.3.4.tar.gz dest=/tmp/ngx_openresty-1.4.3.4.tar.gz mode=644
+
+- name: untar
+  shell: tar xvf /tmp/ngx_openresty-1.4.3.4.tar.gz chdir=/tmp/ creates=/tmp/ngx_openresty-1.4.3.4/
+
+- name: configure
+  shell: ./configure --prefix=/usr/local/openresty/ --with-luajit chdir=/tmp/ngx_openresty-1.4.3.4/ creates=/tmp/ngx_openresty-1.4.3.4/Makefile
+
+- name: Make install
+  shell: make install chdir=/tmp/ngx_openresty-1.4.3.4/ creates=/usr/local/openresty/
+
+- name: copy service
+  copy: src=openresty.service dest=/etc/rc.d/init.d/openresty mode=755 owner=root group=root
+  notify:
+    - Start openresty
